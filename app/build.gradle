@@ -1,0 +1,167 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
+    id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+def cprops = new Properties()
+cprops.load(new FileInputStream(file('config.properties')))
+def config = new ConfigSlurper().parse(cprops)
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
+    buildFeatures {
+//        compose true
+        viewBinding true
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+//    composeOptions {
+//        kotlinCompilerExtensionVersion composeVersion
+//    }
+
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "env"
+    productFlavors {
+        development {
+            dimension "env"
+            applicationIdSuffix '.dev'
+            resValue "string", "app_name", "@string/app_name_dev"
+            buildConfigField("String", "API_BASE_URL", config.env.dev.baseurl)
+            buildConfigField("String", "API_MOCK_BASE_URL", config.env.dev.mockbaseurl)
+        }
+        staging {
+            dimension "env"
+            applicationIdSuffix '.staging'
+            resValue "string", "app_name", "@string/app_name_staging"
+            buildConfigField("String", "API_BASE_URL", config.env.staging.baseurl)
+        }
+        production {
+            dimension "env"
+            resValue "string", "app_name", "@string/app_name_prod"
+            buildConfigField("String", "API_BASE_URL", config.env.prod.baseurl)
+        }
+    }
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation kotlinStdLib
+
+    //network
+    implementation libs.retrofit
+    implementation libs.okhttp
+    implementation libs.gson
+    //androidx
+    implementation support.appcompat
+    implementation support.constraint
+    implementation support.recyclerview
+    implementation support.core
+    implementation support.design
+    implementation support.swiperefreshlayout
+//    implementation support.activityCompose
+
+    //compose
+//    implementation compose.ui
+//    implementation compose.tooling
+//    implementation compose.foundation
+//    implementation compose.runtime
+//    implementation compose.livedata
+//    implementation compose.rxjava
+//    implementation compose.material
+
+    //navigation
+    implementation support.navigationFragment
+    implementation support.navigationUi
+
+    //network
+    implementation libs.retrofit
+    implementation libs.okhttp
+    implementation libs.gson
+
+    implementation libs.glide
+
+    //rxjava
+    implementation libs.rxjava
+
+    //database
+    implementation support.room
+    kapt support.roomCompiler
+    implementation support.roomCommon
+    implementation support.roomRxJava
+
+    //hilt
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompilerAndroid
+
+    //hilt livecycle vm
+    implementation libs.hiltLivecycleVM
+    kapt libs.hiltCompilerLivecycleVM
+
+    implementation 'io.github.florent37:shapeofview:1.4.7'
+
+    implementation "com.airbnb.android:epoxy:4.6.2"
+    kapt 'com.airbnb.android:epoxy-processor:4.6.2'
+    implementation 'com.airbnb.android:epoxy-databinding:4.6.2'
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.1"
+
+}

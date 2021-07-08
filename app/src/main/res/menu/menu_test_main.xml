@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/testHomeFragment"
+        android:visible="false"
+        android:title="" />
+
+    <item
+        android:id="@+id/testFavoriteFragment"
+        android:icon="@drawable/ic_menu_bottom_favorite"
+        android:title="@string/favorite"/>
+
+    <item
+        android:id="@+id/testNotificationFragment"
+        android:icon="@drawable/ic_menu_bottom_notification"
+        android:title="@string/notification"/>
+
+    <item
+        android:id="@+id/testDraftFragment"
+        android:icon="@drawable/ic_menu_bottom_draft"
+        android:title="@string/draft"/>
+
+    <item
+        android:id="@+id/testProfileFragment"
+        android:icon="@drawable/ic_menu_bottom_profile"
+        android:title="@string/menu_profile"/>
+</menu>

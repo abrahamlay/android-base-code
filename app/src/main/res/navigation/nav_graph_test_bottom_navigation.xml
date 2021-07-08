@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_test_bottom_navigation"
+    app:startDestination="@id/testHomeFragment">
+
+    <fragment
+        android:id="@+id/testHomeFragment"
+        android:name="com.atech.android.feature.test.home.TestHomeFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/testFavoriteFragment"
+        android:name="com.atech.android.feature.test.favorite.TestFavoriteFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/testNotificationFragment"
+        android:name="com.atech.android.feature.test.home.TestNotificationFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/testDraftFragment"
+        android:name="com.atech.android.feature.test.home.TestDraftFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/testProfileFragment"
+        android:name="com.atech.android.feature.test.home.TestProfileFragment">
+
+    </fragment>
+
+</navigation>

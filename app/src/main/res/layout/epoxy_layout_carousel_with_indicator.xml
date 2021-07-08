@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="models"
+            type="com.atech.android.feature.test.home.ModelHomeCarouselContainer" />
+    </data>
+
+    <com.airbnb.epoxy.Carousel
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        carouselModel="@{models.models}"
+        paddingLeft="@{Integer.parseInt(`8`)}"
+        paddingRight="@{Integer.parseInt(`8`)}"
+        paddingTop="@{Integer.parseInt(`4`)}"
+        paddingBottom="@{Integer.parseInt(`4`)}"/>
+</layout>

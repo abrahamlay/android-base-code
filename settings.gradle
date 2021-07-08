@@ -1,0 +1,2 @@
+rootProject.name = "Atech Android Starter"
+include ':app'
