@@ -1,0 +1,97 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+//        compose true
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
+
+    buildTypes {
+        debug {
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "env"
+    productFlavors {
+        development {
+            dimension "env"
+            resValue "string", "app_name", "@string/app_name_dev"
+        }
+        staging {
+            dimension "env"
+            resValue "string", "app_name", "@string/app_name_staging"
+        }
+        production {
+            dimension "env"
+            resValue "string", "app_name", "@string/app_name_prod"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation kotlinStdLib
+    api project(':data')
+    api project(':core-ui')
+    api project(':navigation')
+
+    //network
+    api libs.retrofit
+    implementation libs.okhttp
+    implementation libs.gson
+
+    //rxjava
+    api libs.rxjava
+
+    //image processor
+    implementation libs.glide
+
+    //navigation
+    implementation support.navigationUi
+    implementation support.navigationFragment
+    implementation support.activityKtx
+
+    //hilt
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompilerAndroid
+
+    //hilt livecycle vm
+    implementation libs.hiltLivecycleVM
+    kapt libs.hiltCompilerLivecycleVM
+
+    testImplementation test.jUnit
+    androidTestImplementation test.testRunner
+    androidTestImplementation test.espresso
+}
