@@ -1,2 +1,2 @@
-# atech-android-starter
-ATech Android Starter Project
+# android-starter
+ Android Starter Project
